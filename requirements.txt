@@ -1,0 +1,10 @@
+streamlit
+pandas
+numpy
+sqlalchemy
+matplotlib
+requests
+psutil
+mysql-connector-python   # only if you use the MySQL branch of DBHandler
+flask
+plotly

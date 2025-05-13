@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Flask Pie Charts</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            width: 90%;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-around;
+        }
+        .half {
+            width: 45%;
+            text-align: center;
+            border: 1px solid #ccc;
+            margin: 10px;
+            padding: 10px;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            margin-top: 10px;
+        }
+        .generate-btn {
+            margin: 20px auto;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <h1>Pie Charts for Calls</h1>
+    
+    <form action="/" method="POST">
+        <div class="container">
+            <!-- Left half -->
+            <div class="half">
+                
+                <label for="tmc_left">Select TMC (Left):</label>
+                <select name="tmc_left" id="tmc_left">
+                    <option value="">--Select--</option>
+                    <option value="India">INDIA</option>
+                    <option value="West_Bengal">West_Bengal</option>
+                    <option value="Telangana">Telangana</option>
+                    <option value="Odisha">Odisha</option>
+                    <option value="TeleManas_Master_Inbound_DONOT_TOUCH">TeleManas_Master_Inbound_DONOT_TOUCH</option>
+                    <option value="Tamil_Nadu">Tamil_Nadu</option>
+                    <option value="Madhya_Pradesh">Madhya_Pradesh</option>
+                    <option value="Uttar_Pradesh">Uttar_Pradesh</option>
+                    <option value="Jammu_Kashmir">Jammu_Kashmir</option>
+                    <option value="Jharkhand">Jharkhand</option>
+                    <option value="Rajasthan">Rajasthan</option>
+                    <option value="Haryana">Haryana</option>
+                    <option value="Chhattisgarh">Chhattisgarh</option>
+                    <option value="Delhi">Delhi</option>
+                    <option value="Karnataka">Karnataka</option>
+                    <option value="Mizoram">Mizoram</option>
+                    <option value="Arunachal_Pradesh">Arunachal_Pradesh</option>
+                    <option value="Maharashtra">Maharashtra</option>
+                    <option value="Meghalaya">Meghalaya</option>
+                    <option value="Dadra_Daman_Diu">Dadra_Daman_Diu</option>
+                    <option value="Kerala">Kerala</option>
+                    <option value="Pondicherry">Pondicherry</option>
+                    <option value="Tripura">Tripura</option>
+                    <option value="Andhra_Pradesh">Andhra_Pradesh</option>
+                    <option value="Goa">Goa</option>
+                    <option value="Gujarat">Gujarat</option>
+                    <option value="Punjab">Punjab</option>
+                    <option value="Assam">Assam</option>
+                    <option value="Bihar">Bihar</option>
+                    <option value="Manipur">Manipur</option>
+                    <option value="Lakshadweep">Lakshadweep</option>
+                    <option value="IIITB_OB">IIITB_OB</option>
+                    <option value="Ladakh">Ladakh</option>
+                    <option value="Chandigarh">Chandigarh</option>
+                    <option value="Uttarakhand">Uttarakhand</option>
+                    <option value="Nagaland">Nagaland</option>
+                    <option value="Andaman_Nicobar">Andaman_Nicobar</option>
+                    <option value="Himachal_Pradesh">Himachal_Pradesh</option>
+                    <option value="Sikkim">Sikkim</option>
+                    <option value="AFMS">AFMS</option>
+                    <option value="ML02_TMC">ML02_TMC</option>
+                    <option value="docutoroutboud">docutoroutboud</option>
+                    <option value="Training_TMC_UK">Training_TMC_UK</option>
+                    <option value="KIRAN">KIRAN</option>
+                </select>
+
+                <br\><br\><br\><br\><br\><br\><br\><br\>
+                <br\><br\><br\><br\><br\><br\><br\><br\>
+                <br\><br\><br\><br\><br\><br\><br\><br\>
+                <!-- If a chart is generated, display it -->
+                {% if left_chart %}
+                    <img src="{{ url_for('static', filename='charts/' ~ left_chart) }}" alt="Left Chart">
+                {% endif %}
+
+                <br/><br/><hr/>
+                <h6>Total Entered TMC:  {{ te[0] }}</h6>
+                <h6>Towards Rating :  {{ te[1] }}</h6>
+                <h6>Repeated:  {{ te[2] }}</h6>
+
+            </div>
+            
+            <!-- Right half -->
+            <div class="half">
+                
+                <label for="tmc_right">Select TMC (Right):</label>
+                <select name="tmc_right" id="tmc_right">
+                    <option value="">--Select--</option>
+                    <option value="India">INDIA</option>
+                    <option value="West_Bengal">West_Bengal</option>
+                    <option value="Telangana">Telangana</option>
+                    <option value="Odisha">Odisha</option>
+                    <option value="TeleManas_Master_Inbound_DONOT_TOUCH">TeleManas_Master_Inbound_DONOT_TOUCH</option>
+                    <option value="Tamil_Nadu">Tamil_Nadu</option>
+                    <option value="Madhya_Pradesh">Madhya_Pradesh</option>
+                    <option value="Uttar_Pradesh">Uttar_Pradesh</option>
+                    <option value="Jammu_Kashmir">Jammu_Kashmir</option>
+                    <option value="Jharkhand">Jharkhand</option>
+                    <option value="Rajasthan">Rajasthan</option>
+                    <option value="Haryana">Haryana</option>
+                    <option value="Chhattisgarh">Chhattisgarh</option>
+                    <option value="Delhi">Delhi</option>
+                    <option value="Karnataka">Karnataka</option>
+                    <option value="Mizoram">Mizoram</option>
+                    <option value="Arunachal_Pradesh">Arunachal_Pradesh</option>
+                    <option value="Maharashtra">Maharashtra</option>
+                    <option value="Meghalaya">Meghalaya</option>
+                    <option value="Dadra_Daman_Diu">Dadra_Daman_Diu</option>
+                    <option value="Kerala">Kerala</option>
+                    <option value="Pondicherry">Pondicherry</option>
+                    <option value="Tripura">Tripura</option>
+                    <option value="Andhra_Pradesh">Andhra_Pradesh</option>
+                    <option value="Goa">Goa</option>
+                    <option value="Gujarat">Gujarat</option>
+                    <option value="Punjab">Punjab</option>
+                    <option value="Assam">Assam</option>
+                    <option value="Bihar">Bihar</option>
+                    <option value="Manipur">Manipur</option>
+                    <option value="Lakshadweep">Lakshadweep</option>
+                    <option value="IIITB_OB">IIITB_OB</option>
+                    <option value="Ladakh">Ladakh</option>
+                    <option value="Chandigarh">Chandigarh</option>
+                    <option value="Uttarakhand">Uttarakhand</option>
+                    <option value="Nagaland">Nagaland</option>
+                    <option value="Andaman_Nicobar">Andaman_Nicobar</option>
+                    <option value="Himachal_Pradesh">Himachal_Pradesh</option>
+                    <option value="Sikkim">Sikkim</option>
+                    <option value="AFMS">AFMS</option>
+                    <option value="ML02_TMC">ML02_TMC</option>
+                    <option value="docutoroutboud">docutoroutboud</option>
+                    <option value="Training_TMC_UK">Training_TMC_UK</option>
+                    <option value="KIRAN">KIRAN</option>
+                </select>
+                <br\><br\><br\><br\><br\><br\><br\><br\>
+                <br\><br\><br\><br\><br\><br\><br\><br\>
+                <br\><br\><br\><br\><br\><br\><br\><br\>
+                <!-- If a chart is generated, display it -->
+                {% if right_chart %}
+                    <img src="{{ url_for('static', filename='charts/' ~ right_chart) }}" alt="Right Chart">
+                {% endif %}
+
+                <br/><br/><hr/>
+                <h6>Total Entered TMC:  {{ te1[0] }}</h6>
+                <h6>Towards Rating :  {{ te1[1] }}</h6>
+                <h6>Repeated:  {{ te1[2] }}</h6>
+            </div>
+        </div>
+        
+        <button class="generate-btn" type="submit">Generate</button>
+    </form>
+</body>
+</html>

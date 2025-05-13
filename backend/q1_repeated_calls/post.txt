@@ -1,0 +1,63 @@
+{% if tmc_charts and india_charts %}
+
+    <div class="charts-wrapper">
+      <!-- Left: selected TMC -->
+      <div class="half">
+        <h2>{{ request.form.tmc }} Charts</h2>
+        <div class="graph-grid">
+          {% for fname in tmc_charts %}
+            <div class="graph-block">
+              <img src="{{ url_for( ~ fname) }}"
+                   alt="Chart {{ loop.index }}">
+              <a href="{{ url_for( ~ fname) }}"
+                 download="{{ fname }}">
+                <button class="download-btn">⬇</button>
+              </a>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+
+
+      <!-- Right: INDIA -->
+      <div class="half">
+        <h2>India Charts</h2>
+        <div class="graph-grid">
+          {% for fname in india_charts %}
+            <div class="graph-block">
+              <img src="{{ url_for( ~ fname) }}"
+                   alt="Chart {{ loop.index }}">
+              <a href="{{ url_for( ~ fname) }}"
+                 download="{{ fname }}">
+                <button class="download-btn">⬇</button>
+              </a>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  {% endif %}____is it correct above is the html file _____def index():
+    if request.method ==  "POST":
+
+        delete_only_files_in_folder("static/charts")
+        print("deleted all teh repvious folders\n")
+
+
+        call_type =  request.form.get('call_type')
+        if call_type == 'N':
+            call_type=None
+
+        tmc = request.form.get('tmc')
+        if tmc=='India' or tmc == "":
+            tmc=None
+
+        days = int(tmc.form.get('days'))
+        bins = int(tmc.form.get('bins'))
+
+
+        indians,tmcs = chart_generator.deciding_factors(tmc=tmc, call_type = call_type, days=days,bins=bins )
+
+
+        
+
+    return render_template("index.html",all_tmcs = tmc_list, tmc_charts = tmcs, india_charts = indians )_______this is the flask file___check for it and correct it

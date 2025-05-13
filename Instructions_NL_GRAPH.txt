@@ -1,0 +1,18 @@
+Instructions To Follow
+
+
+    Create the virtual envirnoment.
+    Change the envirnomnet varibale to binary of envirnomnet ```source env_name/bin/activate```
+    Install the libraries using ```pip install -r requirements.txt```
+    If you are running llamma for the first time, then it is aorung 2B parameters which consumes around 8Gb of your RAM.
+    If you do not have 8gb RAM comment t1.start() in server.py at the end.
+    Start server using ```python server.py```
+    Enjoy the treat.
+
+
+    First convert the csv to the database.sqlite, code is in the nl to sql to graph
+    To improve the result:
+    a) Give more variants of the prompts.
+    b) Finetune with many sql queries - use that modified 
+    c) Use more powerful LLM
+    Currently we have worked to give the demo show.

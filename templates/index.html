@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Generate & Compare Charts</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+  
+    .top-form {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      align-items: flex-end;
+      padding: 20px;
+      border: 1px solid #ccc;
+    }
+  
+    .top-form .form-group {
+      display: flex;
+      flex-direction: column;
+    }
+  
+    .top-form label {
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+  
+    .top-form select,
+    .top-form input {
+      padding: 5px;
+      font-size: 1rem;
+      width: 200px;
+    }
+  
+    .generate-btn {
+      padding: 10px 20px;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+  
+    .charts-wrapper {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      margin-top: 30px;
+    }
+  
+    .half {
+      width: 48%;
+      border: 1px solid #ccc;
+      padding: 15px;
+      box-sizing: border-box;
+    }
+  
+    .half h2 {
+      margin-top: 0;
+      text-align: center;
+    }
+  
+    .graph-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+  
+    .graph-block {
+      position: relative;
+      border: 1px solid #eee;
+      padding: 5px;
+      box-sizing: border-box;
+    }
+  
+    
+
+.graph-block img {
+  width: 100%;
+  height: 450px;
+  object-fit: contain;
+  display: block;
+}
+
+
+  
+    .download-btn {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      background: rgba(255, 255, 255, 0.8);
+      border: none;
+      cursor: pointer;
+      font-size: 1.2rem;
+      line-height: 1;
+      padding: 2px 6px;
+    }
+  </style>
+  
+</head>
+<body>
+  <center>
+  <h1>Repeated Callers Compare India  vs.  TMC</h1>
+
+  <form action="/" method="POST">
+    <div class="top-form">
+
+      <div class="form-group">
+        <label for="call_type">Call Type</label>
+        <select name="call_type" id="call_type" required>
+          <option value="">-- Select --</option>
+          <option value="User initiated">Inbound</option>
+          <option value="Tele MANAS initiated">Outbound</option>
+          <option value="N">ALL</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="tmc">TMC</label>
+        <select name="tmc" id="tmc" required>
+          <option value="">-- Select --</option>
+          
+          {% for t in all_tmcs %}
+            <option value="{{ t }}" {% if request.form.tmc == t %}selected{% endif %}>{{ t }}</option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="days">DAYS-INTERVAL</label>
+        <input type="number" id="days" name="days" min="1" value="{{ request.form.days or 7 }}" required>
+      </div>
+
+
+      <button type="submit" class="generate-btn">Generate Charts</button>
+    </div>
+  </form>
+  </center>
+
+
+  {% if india_charts or tmc_charts %}
+
+    <div class="charts-wrapper">
+      <!-- Left: selected TMC -->
+      <div class="half">
+        <h2> INDIA Charts</h2>
+        <div class="graph-grid">
+          {% for fname in tmc_charts %}
+            <div class="graph-block">
+              <img src="{{ url_for('static', filename='charts/' ~ fname) }}"
+                   alt="Chart {{ loop.index }}">
+              <a href="{{ url_for('static', filename='charts/' ~ fname) }}"
+                 download="{{ fname }}">
+                <button type="button" class="download-btn">⬇</button>
+              </a>
+              <br/>
+            </div>
+            <br/>
+          {% endfor %}
+        </div>
+      </div>
+
+      <!-- Right: INDIA -->
+      <div class="half">
+        <h2>{{ request.form.tmc or 'Selected' }} Charts</h2>
+        <div class="graph-grid">
+          {% for fname in india_charts %}
+            <div class="graph-block">
+              <img src="{{ url_for('static', filename='charts/' ~ fname) }}"
+                   alt="Chart {{ loop.index }}">
+              <a href="{{ url_for('static', filename='charts/' ~ fname) }}"
+                 download="{{ fname }}">
+                <button type="button" class="download-btn">⬇</button>
+              </a>
+              <br/>
+            </div>
+            <br/>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  {% endif %}
+
+</body>
+</html>

@@ -98,4 +98,4 @@ export LLAMA_MODEL_PATH="/path/to/llama-2b"
 
 ---
 
-> *Built with ❤️ to simplify NL → SQL → Graph workflows!*
+> *Built to simplify NL → SQL → Graph workflows!*

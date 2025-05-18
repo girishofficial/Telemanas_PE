@@ -4,28 +4,28 @@ This repository demonstrates converting **CSV to SQLite**, running a **Flask/Str
 
 ---
 
-## 🚀 Quick Setup Instructions
+##  Quick Setup Instructions
 
-### 🔗 [Google Drive Link for Data & Resources](https://drive.google.com/drive/folders/19UJ9TeaU3_HcQV8BI0BBNtPbs2jcTqjT)
+###  [Google Drive Link for Data & Resources](https://drive.google.com/drive/folders/19UJ9TeaU3_HcQV8BI0BBNtPbs2jcTqjT)
 
 ---
 
-### ⚙️ 1. Create and Activate a Virtual Environment
+###  1. Create and Activate a Virtual Environment
 
 ```bash
 python3 -m venv env
 source env/bin/activate  # for macOS/Linux
 ```
 
-### 📦 2. Install Dependencies
+###  2. Install Dependencies
 
 ```bash
 pip install -r requirements.txt
 ```
 
-> ⚠️ If you get an error for packages like `json`, `typing`, `logging`, etc. — they are part of Python’s standard library. You do **not** need to list or install them separately.
+>  If you get an error for packages like `json`, `typing`, `logging`, etc. — they are part of Python’s standard library. You do **not** need to list or install them separately.
 
-### 🧠 3. Run LLaMA-based Server
+###  3. Run LLaMA-based Server
 
 > The model used is around **2B parameters**, requiring approximately **8 GB RAM**.
 
@@ -36,7 +36,7 @@ pip install -r requirements.txt
 # t1.start()
 ```
 
-### ▶️ 4. Start the Server
+###  4. Start the Server
 
 ```bash
 python server.py
@@ -46,7 +46,7 @@ Your server will now be live at `http://localhost:8000`
 
 ---
 
-## 🗃️ Convert CSV to SQLite
+##  Convert CSV to SQLite
 
 First step is to convert your input CSV file into a SQLite database.
 
@@ -58,23 +58,23 @@ This generates `database.sqlite` in the root folder.
 
 ---
 
-## 🛠️ Tips to Improve Results
+##  Tips to Improve Results
 
-### ✅ Prompt Engineering
+###  Prompt Engineering
 
 * Provide **multiple variations** of your natural language prompts.
 
-### ✅ Fine‑Tuning
+###  Fine‑Tuning
 
 * Fine‑tune the LLM with **diverse SQL queries**.
 
-### ✅ Use More Powerful LLMs
+###  Use More Powerful LLMs
 
 * You can swap in a stronger LLaMA variant or a completely different model via the loader logic in `server.py`.
 
 ---
 
-## 💡 Summary of Commands
+##  Summary of Commands
 
 ```bash
 git clone <your-repo-url>
@@ -88,7 +88,7 @@ python server.py
 
 ---
 
-## 📌 Environment Variables (Optional)
+##  Environment Variables (Optional)
 
 ```bash
 export PORT=8000

@@ -1,4 +1,4 @@
-# 🦙 Llama‑Powered SQL‑to‑Graph Demo
+#  Llama‑Powered SQL‑to‑Graph Demo
 
 This repository demonstrates converting **CSV to SQLite**, running a **Flask/Streamlit** server, and interacting with a **2B‑parameter LLaMA model** to convert **Natural Language → SQL → Graphs**.
 

@@ -94,6 +94,12 @@ python server.py
 export PORT=8000
 export MAX_RAM_GB=8
 export LLAMA_MODEL_PATH="/path/to/llama-2b"
+
+## Front-end
+
+The front-end application for this project lives in its own repository:
+🔗 [telemanas_dashboard-frontend](https://github.com/Pralay19/telemanas_dashboard-frontend)
+
 ```
 
 ---

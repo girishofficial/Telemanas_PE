@@ -8,3 +8,4 @@ psutil
 mysql-connector-python   # only if you use the MySQL branch of DBHandler
 flask
 plotly
+flask-cors

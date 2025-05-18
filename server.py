@@ -5,6 +5,7 @@ import logging
 import subprocess
 from threading import Thread
 from flask import Flask, render_template, request
+from flask_cors import CORS
 
 import pandas as pd
 import numpy as np
@@ -107,7 +108,9 @@ class StaticJSONGeneratorForDashboardAndQuestions:
         logger.info("Static JSON files generated successfully.")
 
 # Flask Application Setup
-app = Flask(__name__)
+# app = Flask(__name__)
+app = Flask(__name__, static_url_path='/static')
+CORS(app)
 
 # Initialize repeated callers chart generator
 CSV_FILE_PATH = "database/repeated_callers.csv"

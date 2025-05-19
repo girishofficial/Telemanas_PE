@@ -1,5 +1,5 @@
-#  Llama‑Powered SQL‑to‑Graph Demo
 FRONT END DASHBOARD [LINK] (https://github.com/Pralay19/telemanas_dashboard-frontend)
+#  Llama‑Powered SQL‑to‑Graph Demo
 This repository demonstrates converting **CSV to SQLite**, running a **Flask/Streamlit** server, and interacting with a **2B‑parameter LLaMA model** to convert **Natural Language → SQL → Graphs**.
 
 ---

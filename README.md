@@ -98,6 +98,7 @@ export LLAMA_MODEL_PATH="/path/to/llama-2b"
 ## Front-end
 
 The front-end application for this project lives in its own repository:
+ Report has been uploaded here [LINK] (https://github.com/Gangasagarhl/VISUAL_QUESTION_ANSWERING_ONE_WORD/blob/main/VR_REPORT.pdf)
 🔗 [telemanas_dashboard-frontend](https://github.com/Pralay19/telemanas_dashboard-frontend)
 
 ```

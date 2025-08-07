@@ -6,7 +6,7 @@ This repository demonstrates converting **CSV to SQLite**, running a **Flask/Str
 
 ##  Quick Setup Instructions
 
-###  [Google Drive Link for Data & Resources](https://drive.google.com/drive/folders/19UJ9TeaU3_HcQV8BI0BBNtPbs2jcTqjT)
+###  [Google Drive Link for Data & Resources]()
 
 ---
 

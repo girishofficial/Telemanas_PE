@@ -1,0 +1,4 @@
+FROM seeklhy/codes-1b
+TEMPLATE """{{ .Prompt }}"""
+PARAMETER temperature 0.1
+PARAMETER top_p 0.95

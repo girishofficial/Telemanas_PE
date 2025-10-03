@@ -1,0 +1,65 @@
+# Database files
+database/
+*.sqlite
+*.sqlite3
+*.db
+
+# Data files
+*.csv
+*.xlsx
+*.xls
+Data_set_V2.*
+
+# Virtual environment
+venv/
+env/
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# Environment variables
+.env
+.venv
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Logs
+*.log
+streamlit.log
+streamlit.pid
+
+# Model files (large files)
+*.bin
+*.model
+*.pt
+*.pth
+
+# Training outputs
+results/
+logs/
+wandb/
+
+# Temporary files
+temp/
+tmp/
+*.tmp

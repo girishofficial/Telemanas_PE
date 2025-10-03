@@ -16,9 +16,21 @@ def main():
         ui.show_schema_sidebar(db_handler)
 
     chat = ChatManager()
+    
+    # Add a clear button to the main UI for better usability
+    col1, col2 = st.columns([5, 1])
+    with col2:
+        if st.button("Clear Chat"):
+            # Reset session state for messages
+            st.session_state.messages = [
+                {"role": "assistant", "content": "Hi! Ask me anything about your database."}
+            ]
+            st.rerun()  # Force a rerun to update the UI
+    
     chat.render()
 
-    if user_query := st.chat_input("Ask your database..."):
+    user_query = st.chat_input("Ask your database...")
+    if user_query:
 
         file_path = 'pie_chart.png'
         if os.path.exists(file_path):
@@ -31,7 +43,37 @@ def main():
         schema_hint = db_handler.get_schema_hint()
         llm = LLMHandler()
         sql = llm.query_sql(user_query, schema_hint)
-
+        
+        # Clean the SQL to ensure only one statement is executed
+        # Remove any "Result:" and everything after it
+        if "Result:" in sql:
+            sql = sql.split("Result:")[0].strip()
+        
+        # Remove any "Question:" and everything after it
+        if "Question:" in sql:
+            sql = sql.split("Question:")[0].strip()
+            
+        # Remove any trailing semicolons or extra whitespace
+        sql = sql.strip().rstrip(';')
+        
+        # Fix column names with spaces and hyphens if needed - need to be more aggressive
+        # No need to handle state_name as it doesn't have hyphens anymore
+            
+        if "patient - telemanas_id__age" in sql and "`patient - telemanas_id__age`" not in sql:
+            import re
+            sql = re.sub(r'(?<!`)patient - telemanas_id__age(?!`)', '`patient - telemanas_id__age`', sql)
+            
+        # Also handle WHERE clauses specifically which is where the error is occurring
+        if "WHERE patient - telemanas_id__age" in sql:
+            sql = sql.replace("WHERE patient - telemanas_id__age", "WHERE `patient - telemanas_id__age`")
+        if "where patient - telemanas_id__age" in sql:
+            sql = sql.replace("where patient - telemanas_id__age", "where `patient - telemanas_id__age`")
+        
+        # If using COUNT(*), replace with COUNT(telemanasid) for more accurate counting
+        if "COUNT(*)" in sql:
+            sql = sql.replace("COUNT(*)", "COUNT(telemanasid)")
+        
+        # Display the cleaned SQL
         st.write(sql)
 
         if sql.startswith("-- ERROR"):

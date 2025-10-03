@@ -31,7 +31,19 @@ def main():
         schema_hint = db_handler.get_schema_hint()
         llm = LLMHandler()
         sql = llm.query_sql(user_query, schema_hint)
-
+        
+        # Clean the SQL to ensure only one statement is executed
+        # Remove any "Result:" and everything after it
+        if "Result:" in sql:
+            sql = sql.split("Result:")[0].strip()
+        
+        # Remove any "Question:" and everything after it
+        if "Question:" in sql:
+            sql = sql.split("Question:")[0].strip()
+            
+        # Remove any trailing semicolons or extra whitespace
+        sql = sql.strip().rstrip(';')
+        
         st.write(sql)
 
         if sql.startswith("-- ERROR"):
@@ -39,10 +51,21 @@ def main():
             chat.add_bot_message(sql)
         else:
             try:
+                # Extract state from SQL query to ensure consistency
+                import re
+                state_in_sql = None
+                state_pattern = r"state_name\s*=\s*['\"]([A-Z\s]+)['\"]"
+                state_match = re.search(state_pattern, sql, re.IGNORECASE)
+                if state_match:
+                    state_in_sql = state_match.group(1)
+                    st.write(f"State: {state_in_sql}")
+                
                 rows, columns = db_handler.execute_query(sql)
                 if rows:
                     df = pd.DataFrame(rows, columns=columns)
                     st.dataframe(df)
+
+                    
 
                     img_path = Path("pie_chart.png")
                     if img_path.exists():

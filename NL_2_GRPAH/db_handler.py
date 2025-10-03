@@ -48,9 +48,31 @@ class DBHandler:
         return schema_hint
 
     def execute_query(self, sql: str, as_dataframe: bool = True):
-
+        # Safety check: ensure we're only executing a single statement
+        sql = sql.strip()
+        if ";" in sql and not sql.endswith(";"):
+            # Only keep the first statement if multiple are present
+            sql = sql.split(";")[0] + ";"
         
-
+        # Clean the SQL to ensure it's a valid statement
+        if "Question:" in sql:
+            sql = sql.split("Question:")[0].strip()
+        if "Result:" in sql:
+            sql = sql.split("Result:")[0].strip()
+        
+        # Fix column names with spaces and hyphens - critical to prevent SQL errors
+        # No need to handle state_name as it doesn't have hyphens anymore
+        
+        if "patient - telemanas_id__age" in sql and "`patient - telemanas_id__age`" not in sql:
+            import re
+            sql = re.sub(r'(?<!`)patient - telemanas_id__age(?!`)', '`patient - telemanas_id__age`', sql)
+        
+        # Handle WHERE clause specifically for hyphenated column names
+        if "WHERE patient - telemanas_id__age" in sql:
+            sql = sql.replace("WHERE patient - telemanas_id__age", "WHERE `patient - telemanas_id__age`")
+        if "where patient - telemanas_id__age" in sql:
+            sql = sql.replace("where patient - telemanas_id__age", "where `patient - telemanas_id__age`")
+            
         print("SQL: \n", sql)
         if not self.engine:
             raise RuntimeError("Database engine is not initialized.")
@@ -64,7 +86,16 @@ class DBHandler:
                 print("Columns:\n",columns)
                 print("Rows:\n",rows)
                 print("Calling the graph to generate\n")
-                FlexiblePieChart(columns=columns, rows=rows).make_pie()
+                
+                # Extract state from SQL if it exists for more accurate chart title
+                chart_title = "Distribution"
+                import re
+                state_match = re.search(r"state_name\s*=\s*['\"]([A-Z\s]+)['\"]", sql, re.IGNORECASE)
+                if state_match:
+                    state_name = state_match.group(1)
+                    chart_title = f"{state_name} Distribution"
+                
+                FlexiblePieChart(columns=columns, rows=rows).make_pie(chart_title)
 
                 
                 return rows, columns
@@ -81,15 +112,15 @@ if __name__ == "__main__":
     # Example: Running a query
     sql = """
     SELECT 
-    Patient_District,
-    Patient_Gender,
-    COUNT(Patient_Gender) AS Gender_count
+    district_name,
+    gender,
+    COUNT(telemanasid) AS Gender_count
     FROM 
         table1
     WHERE 
-        Patient_State = 'KARNATAKA'
+        state_name = 'KARNATAKA'
     GROUP BY 
-        Patient_District, Patient_Gender;
+        district_name, gender;
 
         """
     df = handler.execute_query(sql)  # returns a DataFrame

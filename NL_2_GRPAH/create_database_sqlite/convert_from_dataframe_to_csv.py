@@ -1,18 +1,29 @@
 import pandas as pd
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine, text
 
-# Load CSV file and clean column names
-csv_file = "counselling_complaints.csv"
-df = pd.read_csv(csv_file)
+# Paths
+csv_file = r"E:\PE\BackendIntelligent_Dashboard\NL_2_GRPAH\create_database_sqlite\Data_set_V2.csv"
+db_file  = r"E:\PE\BackendIntelligent_Dashboard\NL_2_GRPAH\create_database_sqlite\database.sqlite"
 
-# Replace spaces with underscores in all column names
+# Load CSV
+df = pd.read_csv(csv_file, low_memory=False)  # avoids dtype warning
+
+# Clean column names
 df.columns = df.columns.str.strip().str.replace(" ", "_")
-df.to_csv("counselling_complaints.csv", index=False)
 
-# Create SQLite engine (creates database.sqlite if it doesn't exist)
-engine = create_engine("sqlite:///database.sqlite")
+# Save cleaned CSV back
+df.to_csv(csv_file, index=False)
 
-# Write cleaned DataFrame to SQLite
+# Create SQLite engine (absolute path)
+engine = create_engine(f"sqlite:///{db_file}")
+
+# Write to SQLite
 df.to_sql("table1", engine, if_exists="replace", index=False)
 
-print("CSV data has been successfully written to database.sqlite with cleaned column names.")
+# Verify tables
+with engine.connect() as conn:
+    result = conn.execute(text("SELECT name FROM sqlite_master WHERE type='table';"))
+    print("Tables in DB:", result.fetchall())
+
+print(f"CSV data has been successfully written to {db_file} with cleaned column names.")
+
